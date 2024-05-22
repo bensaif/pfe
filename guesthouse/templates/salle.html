@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation de Salle de Réunion</title>
+    <link rel="icon" type="image/ico" href="{%static 'images/logo.ico' %}">
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+<style>
+    /* styles.css */
+
+/* Style pour le titre */
+h1 {
+    color: #127d8f; /* Couleur du texte */
+    text-align: center; /* Centrage du texte */
+   
+}
+.container{
+    padding-left: 300px;
+   padding-bottom: 100%;
+   
+     
+}
+.wrapper {
+    width: 90%; /* Réduire la largeur pour ajouter de l'espace sur les côtés */
+    margin: 20px auto; /* Marge automatique en haut et en bas, et sur les côtés gauche et droit */
+    padding: 20px; /* Ajouter du rembourrage à l'intérieur du wrapper */
+    background: #dadada;
+    border-radius: 10px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .05);
+    overflow: hidden;
+}
+
+
+/* Style pour les champs de formulaire */
+.myform input[type="text"],
+.myform input[type="email"],
+.myform input[type="date"],
+.myform textarea,
+.myform select {
+    width: 100%; /* Largeur du champ de formulaire */
+    padding: 10px; /* Espacement interne */
+    margin-bottom: 15px; /* Marge en bas */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    box-sizing: border-box; /* Boîte de dimensionnement */
+}
+
+/* Style pour les boutons */
+.myform input[type="submit"],
+.myform input[type="reset"] {
+    width: 100%; /* Largeur du bouton */
+    padding: 10px; /* Espacement interne */
+    border: none; /* Suppression de la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur en pointeur au survol */
+}
+
+.myform input[type="submit"] {
+    background-color: #007bff; /* Couleur de fond du bouton de soumission */
+    color: #fff; /* Couleur du texte du bouton de soumission */
+}
+
+.myform input[type="submit"]:hover {
+    background-color: #0056b3; /* Couleur de fond du bouton de soumission au survol */
+}
+
+.myform input[type="reset"] {
+    background-color: #6c757d; /* Couleur de fond du bouton de réinitialisation */
+    color: #fff; /* Couleur du texte du bouton de réinitialisation */
+}
+
+.myform input[type="reset"]:hover {
+    background-color: #5a6268; /* Couleur de fond du bouton de réinitialisation au survol */
+}
+
+</style>
+<body>
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+    
+    <div class="container">
+        <div class="wrapper">
+        <h1 class="mt-5">Réservation Salle de Réunion</h1>
+        <form method="post" class="myform">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.etablissement.label_tag }}
+                    {{ form.etablissement }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.demandeur.label_tag }}
+                    {{ form.demandeur }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.dateEntrée.label_tag }}
+                    {{ form.dateEntrée }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.dateSortie.label_tag }}
+                    {{ form.dateSortie }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.nomSalleDisponible.label_tag }}
+                    {{ form.nomSalleDisponible }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.nombrePersonne.label_tag }}
+                    {{ form.nombrePersonne }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.typeEvenement.label_tag }}
+                    {{ form.typeEvenement }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.dejeuner.label_tag }}
+                    {{ form.dejeuner }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.pauseCafe.label_tag }}
+                    {{ form.pauseCafe }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.nombrecourrier.label_tag }}
+                    {{ form.nombrecourrier }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.moyen.label_tag }}
+                    {{ form.moyen }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.statue.label_tag }}
+                    {{ form.statue }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    {{ form.commentaire.label_tag }}
+                    {{ form.commentaire }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Valider la réservation</button>
+            <button type="reset" class="btn btn-secondary">Annuler</button>
+        </form>
+    </div></div>
+</body>
+</html>

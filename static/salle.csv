@@ -1,0 +1,12 @@
+idsalle,type,prix,local
+1,"salle de conférence",250,IRA
+2,"salle de réunion LELCD",250,IRA
+3,"salle de réunion LACO",250,IRA
+4,"salle de réunion LESR",250,IRA
+5,"salle de réunion LEFS",250,IRA
+6,"salle de réunion LEP",250,IRA
+7,"salle de réunion CIDRA",250,IRA
+8,"salle de réunion TPOLE",250,TECHNOPOLE
+9,"salle de réunion PEPIN",250,PEPINIERE
+10,"salle de formation TPOLE",250,TECHNOPOLE
+11,"salle de réunion DG",250,IRA
