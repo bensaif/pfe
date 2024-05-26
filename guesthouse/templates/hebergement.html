@@ -84,59 +84,84 @@ h1 {
         <h1 class="mt-5">Réservation d'Hébergement</h1>
         <form method="post" class="myform">
             {% csrf_token %}
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                {{ form.Courrier.label_tag }}
-                {{ form.Courrier }}
-            </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-12 mb-3">
                 {{ form.Etablissement.label_tag }}
                 {{ form.Etablissement }}
             </div>
+            <div class="row">
+               
+                <div class="col-md-6 mb-3">
+                    {{ form.Demandeur.label_tag }}
+                    {{ form.Demandeur }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.Courrier.label_tag }}
+                    {{ form.Courrier }}
+                </div>
+               
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
-                {{ form.Demandeur.label_tag }}
-                {{ form.Demandeur }}
+                {{ form.DateEntree.label_tag }}
+                {{ form.DateEntree }}
             </div>
+            <div class="col-md-6 mb-3">
+                {{ form.DateSortie.label_tag }}
+                {{ form.DateSortie }}
+            </div>
+               
+            </div>
+            <div class="row">
+             
                 <div class="col-md-6 mb-3">
                     {{ form.Capacite.label_tag }}
                     {{ form.Capacite }}
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6 mb-3">
-                    {{ form.DateEntree.label_tag }}
-                    {{ form.DateEntree }}
-                </div>
-                <div class="col-md-6 mb-3">
-                    {{ form.DateSortie.label_tag }}
-                    {{ form.DateSortie }}
+                    {{ form.Chambre.label_tag }}
+                    {{ form.Chambre }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 mb-3">
-                {{ form.ChambreDisponible.label_tag }}
-                {{ form.ChambreDisponible }}
+            
+            <div class="col-md-6 mb-3">
+                <label for="priseEnCharge">{{ form.PriseEnCharge.label_tag }}</label>
+                    <select id="priseEnCharge" name="priseEnCharge">
+                        <option value="" selected disabled></option>
+                        <option value="ira">Ira</option>
+                        <option value="interesse">Intéressé</option>
+                        <option value="autre">Autre</option>
+                    </select>
             </div>
             <div class="col-md-6 mb-3">
-                {{ form.PriseEnCharge.label_tag }}
-                {{ form.PriseEnCharge }}
-            </div></div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                {{ form.Moyen.label_tag }}
-                {{ form.Moyen }}
-            </div>
-            <div class="col-md-6 mb-3">
-                {{ form.Statue.label_tag }}
-                {{ form.Statue }}
-            </div></div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
                 {{ form.Type.label_tag }}
                 {{ form.Type }}
-            </div></div>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="moyen">{{ form.Moyen.label_tag }}</label>
+                    <select id="moyen" name="moyen">
+                        <option value="" selected disabled></option>
+                        <option value="Courrier">Courrier</option>
+                        <option value="téléphone">téléphone</option>
+                        <option value="Fax">Fax</option>
+                    </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="statut">{{ form.Statut.label_tag }}</label>
+                <select id="statut" name="statut">
+                    <option value="" selected disabled></option>
+                    <option value="Confirmer">Confirmer</option>
+                    <option value="Annuler">Annuler</option>
+                    <option value="Ajourné">Ajourné</option>
+                    <option value="Reporter">Reporter</option>
+                    <option value="Prolonger">Prolonger</option>
+                    <option value="EnAttente">EnAttente</option>
+                </select>
+            </div>
+                
+            <div class="col-md-6 mb-3">
             <button type="submit" class="btn btn-primary">Valider la réservation</button>
             <button type="reset" class="btn btn-secondary">Annuler</button>
         </form>

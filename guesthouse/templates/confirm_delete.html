@@ -1,0 +1,6 @@
+<h2>Tu veux vraiment supprimer"{{ object.etablissement }}"?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">oui, supprimer</button>
+    <a href="{% url 'liste' %}">non</a>
+</form>

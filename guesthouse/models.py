@@ -67,12 +67,13 @@ class Reshebergement(models.Model):
     Etablissement = models.CharField(max_length=45, db_collation='utf8mb4_0900_ai_ci')
     Demandeur = models.CharField(max_length=45, db_collation='utf8mb4_0900_ai_ci')
     Capacite = models.IntegerField()
+    
     DateEntree = models.DateField(db_column='dateEntree')  # Field name made lowercase.
     DateSortie = models.DateField(db_column='dateSorti')  # Field name made lowercase.
-    ChambreDisponible = models.CharField(db_column='chambreDispo', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    Chambre= models.CharField(db_column='chambre', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
     PriseEnCharge = models.CharField(db_column='priseEnCharge', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
     Moyen = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
-    Statue = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
+    Statut = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
     Type = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
     idchambre = models.ForeignKey(Hebergement, models.DO_NOTHING, db_column='idchambre')
 
@@ -83,19 +84,21 @@ class Ressalle(models.Model):
     demandeur= models.CharField(max_length=45, db_collation='utf8mb4_0900_ai_ci')
     dateEntrée = models.DateField(db_column='dateEntre')  # Field name made lowercase.
     dateSortie = models.DateField(db_column='dateSorti')  # Field name made lowercase.
-    nomSalleDisponible = models.CharField(db_column='nomSalledispo', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    Salle = models.CharField(db_column='Salle', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
     nombrePersonne = models.IntegerField(db_column='nombrePersonne')  # Field name made lowercase.
-    typeEvenement = models.CharField(db_column='typeEvenement', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
+    sujet = models.CharField(db_column='sujet', max_length=45, db_collation='utf8mb4_0900_ai_ci')  # Field name made lowercase.
     dejeuner = models.IntegerField()
     pauseCafe= models.IntegerField()
-    nombrecourrier = models.IntegerField(db_column='nombreCourrier')  # Field name made lowercase.
+    courrier = models.IntegerField(db_column='Courrier')  # Field name made lowercase.
     moyen = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
-    statue = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
+    priseEnCharge = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
+    statut = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
     commentaire = models.CharField(max_length=100, db_collation='utf8mb4_0900_ai_ci')
     idsalle = models.ForeignKey('Salle', models.DO_NOTHING, db_column='idsalle')
 
 
-
+def __str__(self):
+        return f"{self.sujet} - {self.salle.type} - {self.date}"
 
 class Restauration(models.Model):
     idrestauration = models.IntegerField(primary_key=True)
@@ -109,7 +112,8 @@ class Salle(models.Model):
     type = models.CharField(max_length=45, db_collation='utf8mb4_0900_ai_ci')
     prix = models.CharField(max_length=45, db_collation='utf8mb4_0900_ai_ci')
     local = models.CharField(max_length=45, db_collation='utf8mb4_0900_ai_ci')
-
+    def __str__(self):
+        return self.type
 class Reservation(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateTimeField()

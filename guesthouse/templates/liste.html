@@ -14,26 +14,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-  body {
-        color: #566787;
-        background: #f5f5f5;
-		font-family: 'Roboto', sans-serif;
-	}
+.container{
+    min-width: 95%;
+}
     .table-responsive {
         margin: 30px 0;
     }
 	.table-wrapper {
-		min-width: 1000px;
+		max-width: 100%;
         background: #fff;
         padding: 20px;        
-        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 1px 1px rgba(36, 3, 199, 0.05);
+        margin-left: 250px;
+ 
     }
 	.table-title {
-        padding-bottom: 10px;
+        padding-bottom: 7px;
         margin: 0 0 10px;
     }
     .table-title h2 {
-        margin: 8px 0 0;
+        margin: 5px 0 0;
         font-size: 22px;
     }
     .search-box {
@@ -67,17 +67,17 @@
 		background: #f5f5f5;
 	}
     table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
+        font-size: 12px;
+        margin: 0 4px;
         cursor: pointer;
     }
     table.table td:last-child {
-        width: 130px;
+        width: 100px;
     }
     table.table td a {
         color: #a0a5b1;
         display: inline-block;
-        margin: 0 5px;
+        margin: 0 3px;
     }
 	table.table td a.view {
         color: #03A9F4;
@@ -89,7 +89,7 @@
         color: #E34724;
     }
     table.table td i {
-        font-size: 19px;
+        font-size: 15px;
     }    
     .pagination {
         float: right;
@@ -130,14 +130,11 @@
     } 
  
 </style>
-<script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-});
-</script>
+
 </head>
 <body>
-  
+    {% block content %}
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -160,12 +157,10 @@ $(document).ready(function(){
                       <th scope="col">Demandeur</th>
                       <th scope="col">Entrée</th>
                       <th scope="col">Sortie</th>
-                      <th scope="col">Salle Disponible</th>
+                      <th scope="col">Salle</th>
                       <th scope="col">N°Personne</th>
-                      <th scope="col">Type Événement</th>
                       <th scope="col">Déjeuner</th>
                       <th scope="col">Pause Café</th>
-                      <th scope="col">Moyen</th>
                       <th scope="col">Statut</th>
                       <th scope="col">Actions</th> 
                     </tr>
@@ -174,23 +169,22 @@ $(document).ready(function(){
                     {% if liste_attributs|length > 0 %}
                     {% for ressalle in liste_attributs %}
                     <tr>
-                      <td>{{ ressalle.nombrecourrier }}</td>
+                      <td>{{ ressalle.courrier }}</td>
                       <td>{{ ressalle.demandeur }}</td>
                       <td>{{ ressalle.etablissement }}</td>
                       <td>{{ ressalle.dateEntrée }}</td>
                       <td>{{ ressalle.dateSortie }}</td>
-                      <td>{{ ressalle.nomSalleDispo }}</td>
+                      <td>{{ ressalle.Salle }}</td>
                       <td>{{ ressalle.nombrePersonne }}</td>
-                      <td>{{ ressalle.typeEvenement }}</td>
                       <td>{{ ressalle.dejeuner }}</td>
                       <td>{{ ressalle.pauseCafe }}</td>
-                      <td>{{ ressalle.moyen }}</td>
-                      <td>{{ ressalle.statue }}</td>
+                      <td>{{ ressalle.statut }}</td>
                       <td>
-                        <a class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                    <form action="{% url 'delete_ressalle' ressalle.idressalle %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></button>
                         <a href="edit/" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a href="delete/" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
+                    </form></td>
                     </tr>
                     {% endfor %}
                     {% else %}
@@ -201,6 +195,8 @@ $(document).ready(function(){
                   </tbody>
                 </table> 
             </div></div></div>     
-    </div>     
+    </div>    
+    {% block side %} {% include 'side.html' %} {% endblock side %}
+    {% endblock content %} 
 </body>
 </html>

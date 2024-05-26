@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>réservation</title>
+    <title>reservation</title>
     <link rel="icon" type="image/ico" href="{%static 'images/logo.ico' %}" />
     <link rel="stylesheet" href="stylee.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/stylee.css'%}" />
@@ -24,48 +24,21 @@
         <div class="menu_items">
           <ul class="menu_item">
             <div class="menu_title flex">
-              <span class="title">Réservation</span>
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="/guesthouse/reservation/salle" class="link flex">
-                <i class="bx bxs-business"></i>
-                <span>Salle de réunion</span>
+              <a href="/" class="link flex">
+                <i class='bx bx-home'></i>
+                <span>Accueil</span>
               </a>
             </li>
             <li class="item">
-              <a href="/guesthouse/reservation/hebergement" class="link flex">
-                <i class="bx bx-home-alt"></i>
-                <span>Hébergement</span>
-              </a>
-            </li>
-            <li class="item">
-              <a href="/guesthouse/reservation/calendrier" class="link flex">
-                <i class="bx bxs-calendar"></i>
-                <span>Calendrier</span>
-              </a>
-            </li>
-          </ul>
-
-          <ul class="menu_item">
-            <div class="menu_title flex">
-              <span class="title">Nouveauté</span>
-              <span class="line"></span>
-            </div>
-            <li class="item">
-              <a href="/guesthouse/reservation/ajoutSalle" class="link flex">
-                <i class="bx bxs-building"></i>
-                <span>Ajouter Salle</span>
-              </a>
-            </li>
-            <li class="item">
-              <a href="/guesthouse/reservation/ajoutChambre" class="link flex">
-                <i class="bx bxs-building-house"></i>
-                <span>Ajouter Chambre</span>
-              </a>
-            </li>
-          </ul>
-          <ul class="menu_item">
+                <a href="/guesthouse/payement/calendrier" class="link flex">
+                  <i class="bx bxs-calendar"></i>
+                  <span>Calendrier</span>
+                </a>
+              </li>
+              <ul class="menu_item">
             <div class="menu_title flex">
               <span class="title">Listes</span>
               <span class="line"></span>
@@ -85,16 +58,3 @@
             </li>
           </ul>
         </div>
-
-        <div class="sidebar_profile flex">
-          <span class="nav_image">
-            <img src="{%static 'images/p.png'%}" width="70" height="70" />
-          </span>
-          <div class="data_text">
-            <span class="email">chef@exemple.com</span>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </body>
-</html>

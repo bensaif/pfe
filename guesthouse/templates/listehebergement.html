@@ -14,19 +14,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-    body {
-        color: #566787;
-        background: #f5f5f5;
-		font-family: 'Roboto', sans-serif;
-	}
+
     .table-responsive {
         margin: 30px 0;
     }
 	.table-wrapper {
-		min-width: 1000px;
+		max-width: 900px;
         background: #fff;
         padding: 20px;        
         box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        margin-left: 250px;
     }
 	.table-title {
         padding-bottom: 10px;
@@ -136,7 +133,8 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-  
+    {% block content %}
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -158,15 +156,13 @@ $(document).ready(function(){
         <th scope="col">Etablissement</th>
         <th scope="col">Demandeur</th>
         <th scope="col">Capacité</th>
-        <th scope="col">DateHébergement </th>
         <th scope="col">Entrée</th>
         <th scope="col">Sortie</th>
-        <th scope="col">Chambre Disponible</th>
+        <th scope="col">Chambre</th>
         <th scope="col">Prise en Charge</th>
-        <th scope="col">Moyen</th>
         <th scope="col">Statut</th>
         <th scope="col">Type</th>
-        <th scope="col">Actions</th> <!-- Nouvelle colonne pour les boutons -->
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -177,12 +173,10 @@ $(document).ready(function(){
         <td>{{ reshebergement.etablissement }}</td>
         <td>{{ reshebergement.demandeur }}</td>
         <td>{{ reshebergement.capacite }}</td>
-        <td>{{ reshebergement.dateheberg }}</td>
         <td>{{ reshebergement.dateentree }}</td>
         <td>{{ reshebergement.datesorti }}</td>
         <td>{{ reshebergement.chambredispo }}</td>
         <td>{{ reshebergement.priseencharge }}</td>
-        <td>{{ reshebergement.moyen }}</td>
         <td>{{ reshebergement.statue }}</td>
         <td>{{ reshebergement.type }}</td>
         <td>
@@ -200,6 +194,7 @@ $(document).ready(function(){
     </tbody>
   </table>
 </div>
-
+{% block side %} {% include 'side.html' %} {% endblock side %}
+{% endblock content %} 
 </body>
 </html>

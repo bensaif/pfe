@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .models import *
@@ -128,10 +128,17 @@ def update(request):
     
     return render(request, 'edit.html', {'form': form, 'message': messages})
 
-def delete(request):
-    obj = Ressalle.objects.get(idressalle=2)
-    obj.delete()
-    return render(request, 'liste.html')
+def delete_ressalle(request, idressalle):
+    # Utiliser get_object_or_404 pour obtenir l'objet ou renvoyer une page 404 si l'objet n'existe pas
+    obj = get_object_or_404(Ressalle, idressalle=idressalle)
+    
+    if request.method == "POST":
+        # Supprimer l'objet si la méthode est POST
+        obj.delete()
+        return redirect('liste.html')  # Rediriger vers une vue après suppression, par exemple la liste des Ressalles
+
+    # Si ce n'est pas une requête POST, afficher une page de confirmation
+    return render(request, 'confirm_delete.html', {'object': obj})
 
 
 def salle_view(request):

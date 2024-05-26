@@ -11,9 +11,8 @@ def get_client_ip(request):
     return ip
 
 def get_mac_address(ip):
-    # Implémentez cette fonction pour obtenir l'adresse MAC à partir de l'IP si nécessaire.
-    return "00:1A:2B:3C:4D:5E"  # Placeholder, implémentez la vraie logique si possible
-
+   
+    return "00:1A:2B:3C:4D:5E"  
 @receiver(post_save, sender=Reservation)
 def log_reservation_save(sender, instance, created, **kwargs):
     request = kwargs.get('request')
