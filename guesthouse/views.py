@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from .forms import *
 from django.shortcuts import render
 from django.http import JsonResponse 
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from django.db import transaction
 from django.http import HttpResponse
@@ -37,7 +39,7 @@ def delete_reservation(request, pk):
         reservation.delete()
     return HttpResponse("Réservation supprimée")
 
-
+@login_required(login_url='guesthouse/connexion/')
 def salle_form_view(request):
     form = RessalleForm()  
     
@@ -47,12 +49,22 @@ def salle_form_view(request):
             form.save()
             GuestHouseEvent.objects.create(
                 title=form.cleaned_data['etablissement'],
-                start_time=form.cleaned_data['dateEntrée'],  # Correct field name
+                start_time=form.cleaned_data['dateEntrée'],  
                 end_time=form.cleaned_data['dateSortie'] 
             )
-
             return redirect('RessalleForm')
-    
+        else:
+         form = RessalleForm()
+        if 'dateEntrée' in request.GET and 'dateSortie' in request.GET:
+            dateEntrée = request.GET['dateEntrée']
+            dateSortie = request.GET['dateSortie']
+            # Filtrer les salles disponibles
+            salles_occupees = Ressalle.objects.filter(
+                Q(dateEntrée__lte=dateSortie) & Q(dateSortie__gte=dateEntrée)
+            ).values_list('salle', flat=True)
+            salles_disponibles = Salle.objects.exclude(id__in=salles_occupees)
+            form.fields['salle'].queryset = salles_disponibles
+          
     return render(request, 'salle.html', {'form': form})
 
 def home(request):
@@ -65,9 +77,9 @@ def home(request):
 
 def reservation(request):
     return render(request, 'reservation.html')
-
-def admin(request):
-    return render(request, 'admin.html')
+    
+def directeurs(request):
+    return render(request, 'directeurs.html')
 
 def payement(request):
     return render(request, 'payement.html')
@@ -99,16 +111,14 @@ def hebergement_form_view(request):
         if form.is_valid():
             form.save()
             GuestHouseEvent.objects.create(
-                title=form.cleaned_data['nom'],
-                start_time=form.cleaned_data['date'],
-                end_time=form.cleaned_data['date']
+                title=form.cleaned_data['etablissement'],
+                start_time=form.cleaned_data['DateEntre'],  # Correct field name
+                end_time=form.cleaned_data['DateSortie'] 
             )
-           
+
             return redirect('ReshebergementForm')
     
     return render(request, 'hebergement.html', {'form': form})
-
-
 
 def liste_attributs(request):
     liste_attributs = Ressalle.objects.all()
@@ -116,6 +126,14 @@ def liste_attributs(request):
 def liste_chambre(request):
     liste_chambre = Reshebergement.objects.all()
     return render(request, "listehebergement.html", {'liste_chambre': liste_chambre})
+def delete_reshebergement(request, idhebergement):
+    obj = get_object_or_404(Reshebergement, idhebergement=idhebergement)
+    
+    if request.method == "POST":
+        obj.delete()
+        return redirect('liste_chambre')  # Utiliser le nom du pattern URL vers lequel vous souhaitez rediriger après la suppression
+
+    return render(request, 'confirm.html', {'object': obj})
 def update(request):
     obj=Ressalle.objects.get(idressalle=3)
     form = RessalleForm(request.POST or None,instance=obj)  
@@ -129,15 +147,12 @@ def update(request):
     return render(request, 'edit.html', {'form': form, 'message': messages})
 
 def delete_ressalle(request, idressalle):
-    # Utiliser get_object_or_404 pour obtenir l'objet ou renvoyer une page 404 si l'objet n'existe pas
     obj = get_object_or_404(Ressalle, idressalle=idressalle)
     
     if request.method == "POST":
-        # Supprimer l'objet si la méthode est POST
         obj.delete()
-        return redirect('liste.html')  # Rediriger vers une vue après suppression, par exemple la liste des Ressalles
+        return redirect('liste_attribut')  # Utiliser le nom du pattern URL vers lequel vous souhaitez rediriger après la suppression
 
-    # Si ce n'est pas une requête POST, afficher une page de confirmation
     return render(request, 'confirm_delete.html', {'object': obj})
 
 

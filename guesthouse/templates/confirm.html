@@ -1,6 +1,5 @@
-<!-- templates/confirm_delete.html -->
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Confirmer la Suppression</title>
@@ -10,7 +9,7 @@
     <form method="post">
         {% csrf_token %}
         <button type="submit">Oui, supprimer</button>
-        <a href="{% url 'liste_attribut' %}">Annuler</a>
+        <a href="{% url 'liste_chambre %}">Annuler</a>
     </form>
 </body>
 </html>

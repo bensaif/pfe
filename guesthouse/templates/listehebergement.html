@@ -158,7 +158,7 @@ $(document).ready(function(){
         <th scope="col">Capacité</th>
         <th scope="col">Entrée</th>
         <th scope="col">Sortie</th>
-        <th scope="col">Chambre</th>
+        <th scope="col">hebergement</th>
         <th scope="col">Prise en Charge</th>
         <th scope="col">Statut</th>
         <th scope="col">Type</th>
@@ -169,20 +169,25 @@ $(document).ready(function(){
         {% if liste_chambre|length > 0 %}
       {% for reshebergement in liste_chambre %}
       <tr>
-        <td>{{ reshebergement.courrier }}</td>
+        <td>{{ reshebergement.Courrier }}</td>
         <td>{{ reshebergement.etablissement }}</td>
-        <td>{{ reshebergement.demandeur }}</td>
-        <td>{{ reshebergement.capacite }}</td>
-        <td>{{ reshebergement.dateentree }}</td>
-        <td>{{ reshebergement.datesorti }}</td>
-        <td>{{ reshebergement.chambredispo }}</td>
-        <td>{{ reshebergement.priseencharge }}</td>
-        <td>{{ reshebergement.statue }}</td>
-        <td>{{ reshebergement.type }}</td>
+        <td>{{ reshebergement.Demandeur }}</td>
+        <td>{{ reshebergement.Capacite }}</td>
+        <td>{{ reshebergement.DateEntre }}</td>
+        <td>{{ reshebergement.DateSortie }}</td>
+        <td>{{ reshebergement.hebergement }}</td>
+        <td>{{ reshebergement.PriseenCharge }}</td>
+        <td>{{ reshebergement.Statut }}</td>
+        <td>{{ reshebergement.Type }}</td>
         <td>
-          <a class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+         
           <a href="edit/" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-          <a href="delete/" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+          <form action="{% url 'delete_reshebergement' reshebergement.idhebergement %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="delete" title="Delete" data-toggle="tooltip" style="border:none; background:none;">
+                <i class="material-icons" style="color:#E34724;">&#xE872;</i>
+            </button>
+        </form>
       </td>
       </tr>
       {% endfor %}
@@ -194,7 +199,7 @@ $(document).ready(function(){
     </tbody>
   </table>
 </div>
-{% block side %} {% include 'side.html' %} {% endblock side %}
+
 {% endblock content %} 
 </body>
 </html>
